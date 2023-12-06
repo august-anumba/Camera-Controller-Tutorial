@@ -10,8 +10,9 @@ In your chosen scene and folder, create a new C# script by right clicking and se
 
 We will be naming this new C# Script `PlayerMovement`.
 
-We start my making a float for the `moveSpeed`, a `public Transform` for `orientation`, two more floats for `horizontalInput` and `verticalInput`, a `Vector3` for the `moveDirection` and a reference to the `Rigidbody`, we do this by writing the following lines of code, I have also added a Header:
+We start my making a float for the `moveSpeed`, a `public Transform` for `orientation`, two more floats for `horizontalInput` and `verticalInput`, a `Vector3` for the `moveDirection` and a reference to the `Rigidbody`, we do this by writing the following lines of code, I have also added a `Header`:
 
+```.cs 
     [Header("Movement")]
     public float moveSpeed;
 
@@ -23,7 +24,7 @@ We start my making a float for the `moveSpeed`, a `public Transform` for `orient
     Vector3 moveDirection;
 
     Rigidbody rb;
-
+```
 
 
 You can now test the scene you have built yourself, or by running the demo scene provided.
