@@ -84,8 +84,14 @@ private void MovePlayer()
     }
 ```
 
-We also need to remember to call the `MovePlayer()` function in `private void FixedUpdate()`
+We also need to remember to call the `MovePlayer()` function in `private void FixedUpdate()` by writing this code:
 
+```.cs
+private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+```
 
 
 
