@@ -26,5 +26,41 @@ We start my making a float for the `moveSpeed`, a `public Transform` for `orient
     Rigidbody rb;
 ```
 
+Now in `private void Start()` we want to assign this `Rigidbody` as well as freeze its rotation:
 
+```.cs
+ private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+    }
+```
+
+Next we create an input function for the keyboard inputs like `Horizontal` and `Vertical` using the code below:
+
+```.cs
+ private void MyInput()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+    }
+```
+
+We also need to call MyInput in `private void Update()`:
+
+```.cs
+  void Update()
+    {
+        MyInput();
+    }
+```
+We are now ready to create the `MovePlayer` function, we want to first calculate the movement direction
+
+
+
+---------------------
 You can now test the scene you have built yourself, or by running the demo scene provided.
+
+```.cs
+
+```
