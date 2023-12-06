@@ -54,7 +54,42 @@ We also need to call MyInput in `private void Update()`:
         MyInput();
     }
 ```
-We are now ready to create the `MovePlayer` function, we want to first calculate the movement direction
+We are now ready to create the `MovePlayer` function. 
+
+```.cs
+ private void MovePlayer()
+    {
+
+    }
+```
+We want to first calculate the movement direction by creating a new `Vector3` called `moveDirection` and setting it equal to `orientation.forward` multiplied by our `verticalInput` plus our `orientation.right` multiplied by the `horizontalInput`. This way the player will always walk in a direction relative to where they are looking.
+
+```.cs
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+```
+
+To now add force to the player, we can now use `rb.AddForce()` in the direction we just calcuated under `moveDirection.normalized` multiplied by the `moveSpeed` and multiplied by 10 to make the movement a little faster as well as using `ForceMode.Force`
+
+```.cs
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+```
+The `MovePlayer` function should look like this:
+
+```.cs
+private void MovePlayer()
+    {
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+    }
+```
+
+We also need to remember to call the `MovePlayer()` function in `private void FixedUpdate()`
+
+
+
+
+
 
 
 
