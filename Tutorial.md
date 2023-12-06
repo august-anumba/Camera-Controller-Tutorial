@@ -1,6 +1,6 @@
-# Movement Controller Tutorial
+# X and Z Movement Controller Tutorial
 
-This tutorial shows how to create a player movement controller in Unity.
+This tutorial shows how to create a player movement controller on the X and Y axis in Unity.
 
 ## 1. Creating `PlayerMovement` C# Script
 
@@ -93,15 +93,9 @@ private void FixedUpdate()
     }
 ```
 
+We then assign this newly made C# Script `PlayerMovement` to the `Player` GameObject as a new component and set up the variables like `Move Speed` to 7 and `Orientation` to the `Orientation` GameObject
+
+![image](https://github.com/august-anumba/Movement-Controller-Tutorial/assets/146851823/680aedb1-63f5-40c6-9867-8f090d41d51c)
 
 
-
-
-
-
----------------------
 You can now test the scene you have built yourself, or by running the demo scene provided.
-
-```.cs
-
-```
