@@ -136,7 +136,7 @@ if (grounded)
             rb.drag = 0;
 ```
 
-Now back in unity
+Now back in unity we set
 
 
 
