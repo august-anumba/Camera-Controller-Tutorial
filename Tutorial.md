@@ -56,6 +56,7 @@ We also need to call MyInput in `private void Update()`:
         MyInput();
     }
 ```
+
 We are now ready to create the `MovePlayer` function. 
 
 ```.cs
@@ -75,6 +76,7 @@ To now add force to the player, we can now use `rb.AddForce()` in the direction 
 ```.cs
         rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 ```
+
 The `MovePlayer` function should look like this:
 
 ```.cs
@@ -94,6 +96,7 @@ private void FixedUpdate()
         MovePlayer();
     }
 ```
+
 ## 3. Assigning scripts and inputing variables
 
 We then assign this newly made C# Script `PlayerMovement` to the `Player` GameObject as a new component and set up the variables like `Move Speed` to 7 and `Orientation` to the `Orientation` GameObject
@@ -101,6 +104,42 @@ We then assign this newly made C# Script `PlayerMovement` to the `Player` GameOb
 ![image](https://github.com/august-anumba/Movement-Controller-Tutorial/assets/146851823/680aedb1-63f5-40c6-9867-8f090d41d51c)
 
 ## 4. Programming the drag and speed controls
+
+If you run the game at this point you will notice that the player seems to have no friction, sliding everywhere and is as if the player is walking on ice.
+
+To fix this we now head back into the `PlayerMovement` C# script and create a new header below the `Movement` header and and `public float moveSpeed`. This header will be titled `Ground Check` because, first we need to check if the player is on the ground and only then we want to apply drag, because appling drag mid air will feel weird to the player.
+
+First then create a new `public float` for the player called `playerHeight` and a new `public` `LayerMask` for what is ground in addition to a `bool` called `grounded`. We also create a `public float` variable called `groundDrag`. It should look like this:
+
+```.cs
+    public float groundDrag;
+
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
+```
+
+To now peform the ground check we want to shoot the raycast from the player's current position down and see if it hits something the length of this ray will be half of your player's height plus a bit more. To achieve this in code we need to go to `void Update` and code the maths as seen below:
+
+```.cs
+     grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2, whatIsGround);
+
+```
+
+In addition to this we also add an `if` `else` loop as seen below to apply the calculated drag:
+
+```.cs
+if (grounded)
+            rb.drag = groundDrag;
+        else
+            rb.drag = 0;
+```
+
+Now back in unity
+
+
+
 
 ...
 
