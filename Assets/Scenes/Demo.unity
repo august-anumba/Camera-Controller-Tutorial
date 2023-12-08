@@ -939,6 +939,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 7
+  groundDrag: 5
+  playerHeight: 2
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
   orientation: {fileID: 188547910}
 --- !u!1 &1599406657
 GameObject:
@@ -1049,7 +1054,7 @@ GameObject:
   - component: {fileID: 1761338757}
   - component: {fileID: 1761338756}
   - component: {fileID: 1761338755}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
