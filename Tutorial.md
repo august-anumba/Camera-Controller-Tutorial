@@ -136,11 +136,112 @@ if (grounded)
             rb.drag = 0;
 ```
 
-Now back in unity we set
+Now back in unity we create a nwe layer mask by clicking `Add Layer` and we create one called whatIsGround and apply it to the ground object:
+
+![image](https://github.com/august-anumba/Movement-Controller-Tutorial/assets/146851823/1e6ff325-c82a-4b67-a71e-5ab005e8953c)
+
+We now set the values of the script `PlayerMovement` in Unity like so:
+
+![image](https://github.com/august-anumba/Movement-Controller-Tutorial/assets/146851823/c4620319-846b-4891-8ddf-de86d66ee82e)
+
+Now running the game, the movement should now feel good and have drag, however the player still reaches speeds exceeding what was set. To fix this we add a new `SpeedControl` function to limit the players speed manually.
+
+```.cs
+private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if(flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
+```
+
+In the script above we are basically telling the game if the player goes faster than the movement speed it calculates what your max velocity would be and then applies it. We then call this function in `private void Update()`
+
+The full complete `PlayerMovement` C# script should look like this:
+
+```.cs
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
+using UnityEngine;
+
+public class PlayerMovement : MonoBehaviour
+{
+    [Header("Movement")]
+    public float moveSpeed;
+
+    public float groundDrag;
+
+    [Header("Ground Check")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
+
+    public Transform orientation;
+
+    float horizontalInput;
+    float verticalInput;
+
+    Vector3 moveDirection;
+
+    Rigidbody rb;
 
 
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+    }
+
+    private void Update()
+    {
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+
+        MyInput();
+        SpeedControl();
+
+        if (grounded)
+            rb.drag = groundDrag;
+        else
+            rb.drag = 0;
+        
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private void MyInput()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+    }
+
+    private void MovePlayer()
+    {
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+
+        if(flatVel.magnitude > moveSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * moveSpeed;
+            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
+        }
 
 
-...
+    }
+}
+
+```
 
 You can now test the scene you have built yourself, or by running the demo scene provided.
